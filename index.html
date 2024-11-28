@@ -34,65 +34,46 @@
             opacity: 0.8;
         }
 
-        h1 {
-            color: #ffbcbc;
-            font-size: 3.5em;
+        /* Imagen de título */
+        .title-image {
+            width: 250px; /* Ajusta el tamaño de la imagen */
+            height: auto;
             position: absolute;
-            top: 50px;
+            top: 20px; /* Posiciona la imagen un poco más arriba */
             z-index: 2;
-            margin: 0;
-            text-align: center;
-            text-shadow: 
-                0 0 5px #ff4d4d, 
-                0 0 10px #ff4d4d, 
-                0 0 20px #ff4d4d,
-                0 0 30px #ff4d4d;
-            animation: neonGlow 1.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes neonGlow {
-            0% {
-                text-shadow: 
-                    0 0 5px #ff4d4d, 
-                    0 0 10px #ff4d4d, 
-                    0 0 20px #ff4d4d,
-                    0 0 30px #ff4d4d;
-            }
-            100% {
-                text-shadow: 
-                    0 0 10px #ff4d4d, 
-                    0 0 20px #ff4d4d, 
-                    0 0 30px #ff4d4d,
-                    0 0 40px #ff4d4d;
-            }
         }
 
         .button-container {
             position: absolute;
-            top: 200px;
+            top: 240px; /* Ajustado para bajar más los botones */
             z-index: 2;
             display: flex;
-            gap: 30px;
+            gap: 20px;
             justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
+            padding: 0 20px;
         }
 
         .button {
-            background-color: red;
+            background-color: #3a8fd6; /* Azul */
             color: white;
             border: none;
-            padding: 20px 50px;
-            font-size: 1.2em;
+            padding: 12px 25px; /* Reducido para ajustar la altura */
+            font-size: 1em;
             text-transform: uppercase;
             cursor: pointer;
             border-radius: 10px;
             transition: all 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+            margin: 10px 0;
         }
 
         .button:hover {
-            background-color: darkred;
+            background-color: #2a6fa0; /* Azul más oscuro */
             transform: scale(1.1);
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+            box-shadow: 0 0 10px rgba(58, 143, 214, 0.6);
         }
 
         .footer-link {
@@ -103,6 +84,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 20px;
         }
 
         .footer-link a {
@@ -112,10 +94,62 @@
             align-items: center;
         }
 
-        .discord-logo {
-            width: 30px;
-            height: 30px;
+        .discord-logo, .youtube-logo {
+            width: 40px; /* Aumentado tamaño del logo de YouTube */
+            height: 40px; /* Aumentado tamaño del logo de YouTube */
             margin-right: 10px;
+        }
+
+        /* Estilos para pantallas pequeñas */
+        @media (max-width: 600px) {
+            .title-image {
+                width: 200px; /* Reducir tamaño en móviles */
+            }
+
+            .button-container {
+                top: 230px; /* Ajuste en móviles */
+                gap: 15px;
+                flex-direction: column;
+            }
+
+            .button {
+                font-size: 1em;
+                padding: 12px 25px;
+                max-width: 90%;
+            }
+
+            .discord-logo, .youtube-logo {
+                width: 30px; /* Tamaño ajustado en móviles */
+                height: 30px; /* Tamaño ajustado en móviles */
+            }
+        }
+
+        /* Estilos para pantallas grandes (PC) */
+        @media (min-width: 601px) {
+            .title-image {
+                width: 250px; /* Aumentar tamaño en pantallas grandes */
+            }
+
+            .button-container {
+                top: 240px; /* Aumentado para más separación */
+                gap: 20px;
+                flex-direction: row;
+            }
+
+            .button {
+                font-size: 1.1em;
+                padding: 12px 35px; /* Ajuste de altura en botones */
+                max-width: none;
+            }
+
+            .footer-link a {
+                font-size: 1.3em;
+            }
+
+            .discord-logo, .youtube-logo {
+                width: 40px; /* Tamaño mayor en PC */
+                height: 40px; /* Tamaño mayor en PC */
+            }
         }
     </style>
 </head>
@@ -123,7 +157,8 @@
 
     <div class="starfield" id="starfield"></div>
 
-    <h1>AC Team</h1>
+    <!-- Título como imagen -->
+    <img src="https://i.imgur.com/8rpSffL.png" alt="AC Team" class="title-image" />
 
     <div class="button-container">
         <button class="button" onclick="window.location.href='https://link-center.net/1251924/multiquest-garriva-farm'">Download Latest Script</button>
@@ -134,6 +169,10 @@
         <a href="https://discord.com" target="_blank">
             <img src="https://logodownload.org/wp-content/uploads/2017/11/discord-logo-1-1.png" class="discord-logo" alt="Discord Logo">
             Discord
+        </a>
+        <a href="https://www.youtube.com/yourchannel" target="_blank">
+            <img src="https://i.imgur.com/JefoaXU.png" class="youtube-logo" alt="YouTube Logo">
+            YouTube
         </a>
     </div>
 
@@ -162,18 +201,15 @@
             generateStar();
         }
 
-      
         function moveStars() {
             stars.forEach(star => {
                 const rect = star.getBoundingClientRect();
                 const starX = rect.left;
                 const starY = rect.top;
 
-               
                 star.style.top = `${star.offsetTop + (Math.random() * 0.5)}px`;
                 star.style.left = `${star.offsetLeft + (Math.random() * 0.5)}px`;
 
-              
                 if (starX > window.innerWidth || starX < 0 || starY > window.innerHeight || starY < 0) {
                     const newX = Math.random() * window.innerWidth;
                     const newY = Math.random() * window.innerHeight;
@@ -183,7 +219,6 @@
                 }
             });
         }
-
 
         setInterval(moveStars, 2); 
     </script>
